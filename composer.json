@@ -1,0 +1,20 @@
+{
+    "name": "bestpickrs/seo",
+    "type": "phpbb-extension",
+    "description": "Advanced SEO extension for phpBB.",
+    "version": "1.0.0",
+    "time": "2024-05-22",
+    "license": "GPL-2.0-only",
+    "authors": [
+        {
+            "name": "P.J.Borgohain",
+            "email": "admin@bestpickrs.com"
+        }
+    ],
+    "extra": {
+        "display-name": "Advanced SEO",
+        "soft-require": {
+            "phpbb/phpbb": ">=3.2"
+        }
+    }
+}
