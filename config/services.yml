@@ -1,0 +1,62 @@
+imports:
+    - { resource: parameters.yml }
+
+services:
+    bestpickrs.advseo.controller.main:
+        class: bestpickrs\advseo\controller\main_controller
+        arguments:
+            - '@config'
+            - '@controller.helper'
+            - '@template'
+            - '@language'
+
+    bestpickrs.advseo.controller.acp:
+        class: bestpickrs\advseo\controller\acp_controller
+        arguments:
+            - '@config'
+            - '@language'
+            - '@log'
+            - '@request'
+            - '@template'
+            - '@user'
+
+    bestpickrs.advseo.service:
+        class: bestpickrs\advseo\service
+        arguments:
+            - '@user'
+            - '%bestpickrs.advseo.tables.advseo_table%'
+
+    bestpickrs.advseo.listener:
+        class: bestpickrs\advseo\event\main_listener
+        arguments:
+            - '@language'
+            - '@controller.helper'
+            - '@template'
+            - '%core.php_ext%'
+        tags:
+            - { name: event.listener }
+
+    bestpickrs.advseo.command.sample:
+        class: bestpickrs\advseo\console\command\sample
+        arguments:
+            - '@user'
+        tags:
+            - { name: console.command }
+
+    bestpickrs.advseo.cron.task.sample:
+        class: bestpickrs\advseo\cron\task\sample
+        arguments:
+            - '@config'
+        calls:
+            - [set_name, [cron.task.bestpickrs.advseo.sample]]
+        tags:
+            - { name: cron.task }
+
+    bestpickrs.advseo.notification.type.sample:
+        class: bestpickrs\advseo\notification\type\sample
+        shared: false # service MUST not be shared for this to work!
+        parent: notification.type.base
+        calls:
+            - [set_controller_helper, ['@controller.helper']]
+        tags:
+            - { name: notification.type }

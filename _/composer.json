@@ -1,0 +1,27 @@
+{
+    "name": "bestpickrs/advseo",
+    "type": "phpbb-extension",
+    "description": "Advanced Seo is Developed by Bestpickrs owner P.J.Borgohain. Its Main Purpose is to advance PhpBB in Seo and make it Super Optimization for rank on Google.",
+    "homepage": "https://bestpickrs.com/",
+    "version": "1.0.0-dev",
+    "time": "2024-05-22",
+    "license": "GPL-2.0-only",
+    "authors": [
+        {
+            "name": "P.J.Borgohain",
+            "email": "bestpickers21@gmail.com",
+            "homepage": "https://bestpickrs.com/memberlist.php?mode=viewprofile&amp;u=2",
+            "role": "CEO"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.3",
+        "composer/installers": "~1.0"
+    },
+    "extra": {
+        "display-name": "Advanced Seo",
+        "soft-require": {
+            "phpbb/phpbb": ">=3.3.0,<4.0.0@dev"
+        }
+    }
+}

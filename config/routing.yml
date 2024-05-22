@@ -1,0 +1,3 @@
+bestpickrs_advseo_controller:
+    path: /demo/{name}
+    defaults: { _controller: bestpickrs.advseo.controller.main:handle }

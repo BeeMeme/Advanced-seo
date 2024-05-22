@@ -1,0 +1,2 @@
+parameters:
+    bestpickrs.advseo.tables.advseo_table: '%core.table_prefix%bestpickrs_advseo_table'
