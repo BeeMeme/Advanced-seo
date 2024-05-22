@@ -1,74 +1,80 @@
 <?php
 /**
- *
- * Advanced Seo. An extension for the phpBB Forum Software package.
- *
- * @copyright (c) 2024, P.J.Borgohain, https://bestpickrs.com/memberlist.php?mode=viewprofile&amp;u=2
+ * Advanced SEO. An extension for the phpBB Forum Software package.
+ * 
+ * @copyright (c) 2024, P.J.Borgohain
  * @license GNU General Public License, version 2 (GPL-2.0)
- *
  */
 
 namespace bestpickrs\advseo\cron\task;
 
-/**
- * Advanced Seo cron task.
- */
-class sample extends \phpbb\cron\task\base
+use phpbb\config\config;
+use phpbb\db\driver\driver_interface;
+use phpbb\cron\task\base;
+
+class seo_maintenance extends base
 {
-	/**
-	 * How often we run the cron (in seconds).
-	 * @var int
-	 */
-	protected $cron_frequency = 86400;
+    protected $config;
+    protected $db;
+    protected $php_ext;
+    protected $root_path;
 
-	/** @var \phpbb\config\config */
-	protected $config;
+    public function __construct(config $config, driver_interface $db, $php_ext, $root_path)
+    {
+        $this->config = $config;
+        $this->db = $db;
+        $this->php_ext = $php_ext;
+        $this->root_path = $root_path;
+    }
 
-	/**
-	 * Constructor
-	 *
-	 * @param \phpbb\config\config $config Config object
-	 */
-	public function __construct(\phpbb\config\config $config)
-	{
-		$this->config = $config;
-	}
+    public function run()
+    {
+        // Example task: Updating the XML sitemap
+        $this->update_sitemap();
 
-	/**
-	 * Runs this cron task.
-	 *
-	 * @return void
-	 */
-	public function run()
-	{
-		// Run your cron actions here...
+        // Example task: Checking for broken links
+        $this->check_broken_links();
 
-		// Update the cron task run time here if it hasn't
-		// already been done by your cron actions.
-		$this->config->set('advseo_cron_last_run', time(), false);
-	}
+        // Additional SEO maintenance tasks can be added here
+    }
 
-	/**
-	 * Returns whether this cron task can run, given current board configuration.
-	 *
-	 * For example, a cron task that prunes forums can only run when
-	 * forum pruning is enabled.
-	 *
-	 * @return bool
-	 */
-	public function is_runnable()
-	{
-		return true;
-	}
+    protected function update_sitemap()
+    {
+        // Logic for generating and updating the XML sitemap
+        // This is just an example; you need to implement the actual logic
+        $sitemap_file = $this->root_path . 'sitemap.xml';
+        $sitemap_content = $this->generate_sitemap();
+        file_put_contents($sitemap_file, $sitemap_content);
+    }
 
-	/**
-	 * Returns whether this cron task should run now, because enough time
-	 * has passed since it was last run.
-	 *
-	 * @return bool
-	 */
-	public function should_run()
-	{
-		return $this->config['advseo_cron_last_run'] < time() - $this->cron_frequency;
-	}
+    protected function generate_sitemap()
+    {
+        // Placeholder for sitemap generation logic
+        // You need to implement the logic to generate sitemap XML
+        return '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
+               '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL .
+               '   <!-- Sitemap content goes here -->' . PHP_EOL .
+               '</urlset>';
+    }
+
+    protected function check_broken_links()
+    {
+        // Logic for checking broken links
+        // This is just an example; you need to implement the actual logic
+        // You can use cURL or other methods to check links
+    }
+
+    public function is_runnable()
+    {
+        // The task is always runnable
+        return true;
+    }
+
+    public function should_run()
+    {
+        // Define the logic when the task should run
+        // For example, run daily
+        $last_run = $this->config['seo_last_run'] ?? 0;
+        return (time() - $last_run) > 86400; // 24 hours in seconds
+    }
 }
