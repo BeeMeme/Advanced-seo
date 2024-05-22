@@ -1,5 +1,5 @@
 <?php
-namespace bestpickrs\seo;
+namespace bestpickrs\advseo;
 
 class ext extends \phpbb\extension\base
 {
